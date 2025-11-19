@@ -1,12 +1,4 @@
----
-
-# 📄 **[DOCUMENTAÇÃO – Benchmark entre Recharts e Chart.js]**
-
-*Plataforma → Engenharia → Validação Técnica*
-
----
-
-# 📘 **1. Contexto**
+# **1. Contexto**
 
 Este documento tem como objetivo registrar a avaliação comparativa entre as bibliotecas de gráficos **Recharts** e **Chart.js**, com foco em identificar qual oferece:
 
@@ -22,7 +14,7 @@ A avaliação foi realizada através de uma **Prova de Conceito (POC)** desenvol
 
 ---
 
-# 🧪 **2. Metodologia do Benchmark**
+# **2. Metodologia do Benchmark**
 
 ### **2.1 Ambiente de Testes**
 
@@ -42,9 +34,7 @@ A avaliação foi realizada através de uma **Prova de Conceito (POC)** desenvol
 | ------------------------------------- | --------------------------------------------------- |
 | Chrome DevTools – Performance         | Render time, CPU time, JS execution, Layout & Paint |
 | Chrome DevTools – Performance Monitor | Uso de memória (heap), DOM nodes                    |
-| Network Panel                         | Tempo de carregamento inicial                       |
-| `performance.now()`                   | Medição de render Time programática                 |
-| Recording repetido 5x                 | Média aritmética por amostra                        |
+| Network Panel                         | Tempo de carregamento inicial                       |             |
 
 ---
 
@@ -52,8 +42,8 @@ A avaliação foi realizada através de uma **Prova de Conceito (POC)** desenvol
 
 | Biblioteca                 | Versão | Observação                           |
 | -------------------------- | ------ | ------------------------------------ |
-| Recharts                   | X.X.X  | Usa composição com componentes React |
-| Chart.js + react-chartjs-2 | X.X.X  | Canvas-based (imperativo)            |
+| Recharts                   | ^3.4.1 | Usa composição com componentes React |
+| Chart.js - react-chartjs-2 | ^4.5.1 - ^5.3.1  | Canvas-based (imperativo)            |
 
 ---
 
@@ -63,6 +53,8 @@ A avaliação foi realizada através de uma **Prova de Conceito (POC)** desenvol
 * Barra
 * Pizza / Donut
 * Área
+* Scatter
+* Radar
 
 Todos implementados **com o mesmo dataset**, no mesmo layout e mesmas dimensões.
 
@@ -74,14 +66,16 @@ Todos implementados **com o mesmo dataset**, no mesmo layout e mesmas dimensões
 
 | Tamanho      | Pontos            | Uso            |
 | ------------ | ----------------- | -------------- |
-| Pequeno      | 100               | Base funcional |
-| Médio        | 1.000             | Cenário típico |
-| Grande       | 10.000            | Stress test    |
-| Muito grande | 50.000 (opcional) | Limite máximo  |
+| 1      | 10               | Base funcional |
+| 2        | 50             | Cenário típico |
+| 3       | 100            | Cenário típico    |
+| 4 | 5000  | Stress Test  |
+| 5 | 10.000  | Stress Test  |
+| 6 | 50.000  | Limite máximo  |
 
 ---
 
-# 🚀 **3. Métricas Coletadas**
+# **3. Métricas Coletadas**
 
 Para cada tamanho da amostra, foram coletadas:
 
@@ -102,11 +96,10 @@ Para cada tamanho da amostra, foram coletadas:
 
 * FCP
 * DOMContentLoaded
-* Total JS Boot Time
 
 ---
 
-# 📊 **4. Resultados**
+# **4. Resultados**
 
 As tabelas a seguir contêm **modelos prontos** para você preencher com seus dados reais.
 
@@ -116,11 +109,13 @@ As tabelas a seguir contêm **modelos prontos** para você preencher com seus da
 
 | Dataset | Recharts (ms) | Chart.js (ms) | Diferença | Melhor    |
 | ------- | ------------- | ------------- | --------- | --------- |
-| 10     | 1220            | 177            | XX        | Chart.js |
-| 100   | 2200            | 256            | XX        | Chart.js |
-| 500  | 5000            | 260            | XX        | Chart.js |
-| 1.000  | XX            | 277            | XX        | Chart.js |
-| 10.000  | XX            | 1078            | XX        | Chart.js |
+| 10     | 1.220            | 177            | +1,0    | Chart.js |
+| 50     | 1.864            | 217            | +1,6    | Chart.js |
+| 100    | 2.200            | 256            | +1,9    | Chart.js |
+| 500    | 5.000            | 260            | +4,7    | Chart.js |
+| 1.000  | 9.900            | 277            | +9,6    | Chart.js |
+| 10.000 | XX               | 1078           | N/A     | N/A |
+| 50.000 | XX               | N/A            | N/A     | N/A |
 
 ---
 
@@ -132,7 +127,8 @@ As tabelas a seguir contêm **modelos prontos** para você preencher com seus da
 | 100     | 3,5s     | 1,1s     | +2,4      | Chart.js |
 | 500     | 8s       | 1,2s     | +6,8      | Chart.js |
 | 1.000   | 11s      | 1,5s     | +9,5      | Chart.js |
-| 10.000  | N/A      | 2,5s     | N/A       | N/A      |
+| 10.000  | XX       | 2,5s     | N/A       | N/A      |
+| 50.000  | XX       | N/A      | N/A       | N/A      |
 
 ---
 
@@ -146,7 +142,7 @@ As tabelas a seguir contêm **modelos prontos** para você preencher com seus da
 | 500     | 75MB (+22)         | 25MB (+6)          | Chart.js |
 | 1.000   | 109MB (+34)        | 30,7MB (+6,7)      | Chart.js |
 | 10.000  | 662MB (+550)       | 151MB (+120)       | Chart.js |
-| 50.000  | N/A                | 479MB (+328)       | Chart.js |
+| 50.000  | XX                 | 479MB (+328)       | Chart.js |
 
 ---
 
@@ -154,41 +150,42 @@ As tabelas a seguir contêm **modelos prontos** para você preencher com seus da
 
 | Métrica          | Recharts | Chart.js | Vencedor |
 | ---------------- | -------- | -------- | -------- |
-| FCP              | XX ms    | XX ms    | **X**    |
-| DOMContentLoaded | XX ms    | XX ms    | **X**    |
-| JS Boot Time     | XX ms    | XX ms    | **X**    |
+| FCP              | 337 ms    | 331 ms    | N/A    |
+| DOMContentLoaded | 220 ms    | 219 ms    | N/A    |
 
 ---
 
-# 🔍 **5. Análise Técnica**
+# **5. Análise Técnica**
 
 (Escreva aqui com base no seus resultados reais — abaixo está um modelo.)
 
 ### **5.1 Performance geral**
 
-📌 *Observações típicas que você pode utilizar:*
-
-* Recharts se mantém mais estável em datasets grandes devido à renderização via SVG + React reconciliation.
-* Chart.js tem picos de CPU mais altos por redesenhar o canvas inteiro.
-* Chart.js tende a ser mais rápido em gráficos pequenos.
-* Recharts ganha vantagem clara em 10k+ pontos.
+* Chart.js se mantém mais estável em datasets pequenos e grandes.
+* Recharts tem picos de CPU mais altos por redesenhar o canvas inteiro.
+* Recharts tem processo de renderização mais lenta em todos os Datasets, mesmo desconsiderando a animação.
 
 ---
 
 ### **5.2 Uso de memória**
 
-* Chart.js tende a consumir mais heap em datasets maiores devido a buffers internos.
-* Recharts usa mais memória em componentes React, mas é mais previsível.
+* Recharts tende a consumir mais heap em datasets maiores devido a buffers internos.
 
 ---
 
-### **5.3 Experiência de desenvolvimento (DX)**
+### **5.4 LCP e DCL**
+
+* Ambos foram eficientes no carregamento inicial da página. O tamanho da biblioteca "Recharts" é ligeiramente maior que as duas bibliotecas juntas do Chart.js (chart-js + react-charts-2)
+
+---
+
+### **5.4 Experiência de desenvolvimento (DX)**
 
 Pontos avaliados:
 
 | Critério             | Recharts           | Chart.js                              |
 | -------------------- | ------------------ | ------------------------------------- |
-| Facilidade de uso    | 👍 simples         | ⚠️ exige config extensa               |
+| Facilidade de uso    | Simples         | Média               |
 | Suporte a React      | Excelente (nativo) | Indireto (bridge via react-chartjs-2) |
 | Componentização      | Excelente          | Baixa                                 |
 | Curva de aprendizado | Baixa              | Média                                 |
@@ -196,32 +193,38 @@ Pontos avaliados:
 
 ---
 
-# 🏁 **6. Conclusão**
+### **6. Ameaças à Validade do Benchmark**
 
-### Exemplo pronto (substitua quando tiver os números reais):
+1. Ameaças Internas:
+   - Re-renderizações involuntárias do React.
+   - Interferência de processos do sistema.
+   - Ambiente inconsistente entre execuções.
 
-> Após a realização dos testes com datasets de 100, 1.000 e 10.000 registros, identificou-se que:
->
-> * **Recharts apresentou melhor performance em amostras médias e grandes**, com menor uso de CPU e tempos mais estáveis.
-> * **Chart.js apresenta carregamento inicial mais rápido e maior flexibilidade visual**, porém sofre em datasets maiores.
-> * Para a arquitetura atual, focada no uso de React e dashboards dinâmicos, **Recharts é tecnicamente a opção mais adequada**.
+2. Ameaças Externas:
+   - Mock de dados não refletir dados reais.
+   - Resultados variam em hardware mais fraco.
 
-📌 **Recomendação final:** Adotar **Recharts** como biblioteca principal de visualização de dados na plataforma.
+3. Ameaças de Construção:
+   - Gráficos não 100% equivalentes entre libs.
+   - Animações e defaults diferentes.
+   - Dimensões diferentes do canvas.
+
+4. Ameaças de Conclusão:
+   - Diferenças dentro da margem de erro.
+   - Número insuficiente de execuções.
+   - Interpretação equivocada das métricas.
+   - Viés do experimentador.
 
 ---
 
-# 📝 **7. Anexos**
+# **7. Conclusão**
 
-### 7.1 Capturas de DevTools Performance
 
-*(Inserir imagens)*
+> Após a realização dos testes com datasets, identificou-se que:
+>
+> * **Chart.js apresentou melhor performance em amostras médias e grandes**, com menor uso de CPU e tempos mais estáveis.
+> * Para a arquitetura atual, focada no uso de React e dashboards dinâmicos, **Charts.js é tecnicamente a opção mais adequada**.
 
-### 7.2 Recordings de CPU
-
-*(Inserir prints do timeline)*
-
-### 7.3 Métricas brutas exportadas
-
-*(JSONs, planilhas ou screenshots)*
+**Recomendação final:** Adotar **Chart.js** como biblioteca principal de visualização de dados na plataforma.
 
 ---

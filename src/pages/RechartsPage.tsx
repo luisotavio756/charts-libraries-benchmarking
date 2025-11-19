@@ -23,7 +23,7 @@ import {
 } from '../shared/mockData';
 
 export default function RechartsPage() {
-  const [sampleSize, setSampleSize] = useState<SampleSize>('1k');
+  const [sampleSize, setSampleSize] = useState<SampleSize>('10');
 
   const lineData = useMemo(() => generateLineData(sampleSize), [sampleSize]);
   const barData = useMemo(() => generateBarData(sampleSize), [sampleSize]);
