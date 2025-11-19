@@ -223,8 +223,4 @@ Pontos avaliados:
 > Após a realização dos testes com datasets, identificou-se que:
 >
 > * **Chart.js apresentou melhor performance em amostras médias e grandes**, com menor uso de CPU e tempos mais estáveis.
-> * Para a arquitetura atual, focada no uso de React e dashboards dinâmicos, **Charts.js é tecnicamente a opção mais adequada**.
-
-**Recomendação final:** Adotar **Chart.js** como biblioteca principal de visualização de dados na plataforma.
-
 ---
